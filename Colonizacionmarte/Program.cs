@@ -33,6 +33,7 @@ El programa debe:
   posibles divisiones por cero.
 */
 
+using Colonizacionmarte;
 using System;
 
 namespace ColonizacionMarte
@@ -46,15 +47,15 @@ namespace ColonizacionMarte
             Console.WriteLine("que estarán ubicados en las planicies(A)cidalia, (E)lysium y (U)topia.");
             Console.WriteLine("Cada lanzamiento tiene un cargamento de hasta 10.000 kg.\n");
 
+            Lanzamiento[] lanz = new Lanzamiento[15];
+
             int totalLanzamientos = 0;
-            string destino = "";
-            float pesoCarga = 0;
 
             /*
             Posiciones en los arreglos
                 0: Acidalia
                 1: Elysium
-                2: Utopia
+                2: Utopia.
             */
 
             //Este arreglo almacenará los totales de carga por planicie
@@ -70,38 +71,39 @@ namespace ColonizacionMarte
                 cantidadLanzamientos[i] = 0;
             }
 
-            while (totalLanzamientos < 15)
+            for (int i = 0;i<lanz.Length;i++)
             {
+                lanz[i] = new Lanzamiento();
                 Console.Write("\nIngresa el destino para el lanzamiento {0} (A,E,U): ", totalLanzamientos + 1);
-                destino = Console.ReadLine().ToUpper();
+                lanz[i].destino = Console.ReadLine().ToUpper();
 
                 //verificamos que el destino sea válido
-                if (destino == "A" || destino == "E" || destino == "U")
+                if (lanz[i].destino == "A" || lanz[i].destino == "E" || lanz[i].destino == "U")
                 {
                     try
                     {
                         //El destino es válido, leemos el valor del cargamento
                         Console.Write("Ingresa el valor del cargamento [0;10000]: ");
-                        pesoCarga = float.Parse(Console.ReadLine());
+                        lanz[i].pesoCarga = float.Parse(Console.ReadLine());
 
-                        if (pesoCarga >= 0 && pesoCarga <= 10000)
+                        if (lanz[i].pesoCarga >= 0 && lanz[i].pesoCarga <= 10000)
                         {
                             //El peso de la carga está en el destino válido, procedemos a acumular en la variable respectiva
-                            switch (destino)
+                            switch (lanz[i].destino)
                             {
                                 case "A":
                                     cantidadLanzamientos[0]++;
-                                    totalesCarga[0] += pesoCarga;
+                                    totalesCarga[0] += lanz[i].pesoCarga;
                                     break;
 
                                 case "E":
                                     cantidadLanzamientos[1]++;
-                                    totalesCarga[1] += pesoCarga;
+                                    totalesCarga[1] += lanz[i].pesoCarga;
                                     break;
 
                                 case "U":
                                     cantidadLanzamientos[2]++;
-                                    totalesCarga[2] += pesoCarga;
+                                    totalesCarga[2] += lanz[i].pesoCarga;
                                     break;
                             }
 
